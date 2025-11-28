@@ -2,7 +2,7 @@
 -- MariaDB/MySQL Schema for Player Management System
 
 -- =====================================================
--- Players Table
+-- Players Table (UPDATED - Added bank_money and cash_money for HUD)
 -- =====================================================
 CREATE TABLE IF NOT EXISTS `players` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS `players` (
     `is_banned` BOOLEAN DEFAULT FALSE,
     `ban_reason` TEXT,
     `ban_until` DATETIME,
+    `bank_money` INT DEFAULT 0,
+    `cash_money` INT DEFAULT 0,
     UNIQUE KEY `username_idx` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

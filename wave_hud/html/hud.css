@@ -1,0 +1,478 @@
+/* =====================================================
+   Wave Romania HUD - CSS Styling
+   Professional Blue & White Elegant Theme
+   ===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: transparent;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+/* =====================================================
+   Color Scheme & Variables
+   ===================================================== */
+
+:root {
+    --primary-blue: #0066ff;
+    --dark-blue: #003d99;
+    --light-blue: #3399ff;
+    --white: #ffffff;
+    --light-gray: #f0f0f0;
+    --dark-gray: #1a1a1a;
+    --text-color: #333333;
+    --border-color: rgba(0, 102, 255, 0.3);
+    --success-green: #28a745;
+    --warning-orange: #ff9800;
+    --danger-red: #dc3545;
+}
+
+/* =====================================================
+   Main HUD Containers
+   ===================================================== */
+
+.hud-container {
+    position: fixed;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    z-index: 100;
+}
+
+.hud-container.top-right {
+    top: 20px;
+    right: 20px;
+    width: 320px;
+}
+
+.hud-container.bottom-center {
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+}
+
+/* =====================================================
+   Top Right Panel - Header/Logo
+   ===================================================== */
+
+.hud-header {
+    background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+    border-radius: 8px 8px 0 0;
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 3px solid var(--dark-blue);
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
+    margin-bottom: 0;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--white);
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.logo-subtext {
+    font-size: 12px;
+    color: var(--light-gray);
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+/* =====================================================
+   HUD Sections
+   ===================================================== */
+
+.hud-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-color);
+    border-top: none;
+    padding: 12px 15px;
+    margin-bottom: 0;
+}
+
+.hud-section:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+/* =====================================================
+   Info Rows (ID, Name, Faction, Group)
+   ===================================================== */
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.info-row .label {
+    color: var(--primary-blue);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-row .value {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+/* =====================================================
+   Player Info Section
+   ===================================================== */
+
+.player-info {
+    background: rgba(240, 240, 240, 0.95);
+}
+
+.player-info .value {
+    color: var(--dark-blue);
+    font-weight: 600;
+}
+
+/* =====================================================
+   Money Section
+   ===================================================== */
+
+.money-section {
+    background: rgba(240, 240, 240, 0.95);
+}
+
+.money-row {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--border-color);
+}
+
+.money-row:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateX(2px);
+}
+
+.money-row.bank {
+    border-left: 4px solid var(--primary-blue);
+}
+
+.money-row.cash {
+    border-left: 4px solid var(--success-green);
+}
+
+.money-icon {
+    font-size: 18px;
+    margin-right: 10px;
+    width: 30px;
+    text-align: center;
+}
+
+.money-info {
+    flex: 1;
+}
+
+.money-label {
+    font-size: 11px;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.money-amount {
+    font-size: 16px;
+    color: var(--dark-blue);
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+/* =====================================================
+   Faction/Group Section
+   ===================================================== */
+
+.faction-group {
+    background: rgba(240, 240, 240, 0.95);
+}
+
+/* =====================================================
+   Bottom Center Stats Panel
+   ===================================================== */
+
+.stats-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--primary-blue);
+    border-radius: 10px;
+    padding: 15px 30px;
+    box-shadow: 0 8px 32px rgba(0, 102, 255, 0.15);
+    min-width: 600px;
+}
+
+/* =====================================================
+   Stat Items
+   ===================================================== */
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.stat-bar-container {
+    position: relative;
+    width: 120px;
+    height: 24px;
+    background: var(--light-gray);
+    border: 1.5px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    transition: width 0.3s ease;
+    border-radius: 3px 0 0 3px;
+}
+
+.health-bar {
+    background: linear-gradient(90deg, var(--success-green), #66ff00);
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+}
+
+.armor-bar {
+    background: linear-gradient(90deg, var(--primary-blue), var(--light-blue));
+    box-shadow: 0 0 8px rgba(0, 102, 255, 0.5);
+}
+
+.energy-bar {
+    background: linear-gradient(90deg, var(--warning-orange), #ffb347);
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+}
+
+.stat-value {
+    position: relative;
+    z-index: 2;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--text-color);
+    min-width: 30px;
+    text-align: center;
+}
+
+/* =====================================================
+   Stat Divider
+   ===================================================== */
+
+.stat-divider {
+    color: var(--border-color);
+    font-size: 24px;
+    margin: 0 10px;
+    opacity: 0.7;
+}
+
+/* =====================================================
+   Loading Indicator
+   ===================================================== */
+
+.loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.loading-indicator.active {
+    opacity: 1;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--primary-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* =====================================================
+   Animations
+   ===================================================== */
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.hud-container.top-right {
+    animation: slideInRight 0.5s ease-out;
+}
+
+.hud-container.bottom-center {
+    animation: slideInUp 0.5s ease-out;
+}
+
+/* =====================================================
+   Responsive Design
+   ===================================================== */
+
+@media (max-width: 1024px) {
+    .hud-container.top-right {
+        width: 280px;
+        top: 15px;
+        right: 15px;
+    }
+
+    .hud-header {
+        padding: 12px 15px;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .hud-section {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .stats-panel {
+        gap: 20px;
+        padding: 12px 25px;
+        min-width: auto;
+    }
+
+    .stat-bar-container {
+        width: 100px;
+        height: 22px;
+    }
+}
+
+/* =====================================================
+   Dark Mode Support (Optional)
+   ===================================================== */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #e0e0e0;
+        --dark-gray: #2a2a2a;
+        --light-gray: #404040;
+    }
+
+    .hud-section,
+    .money-row,
+    .stats-panel {
+        background: rgba(42, 42, 42, 0.95) !important;
+        border-color: rgba(0, 102, 255, 0.4) !important;
+    }
+}
+
+/* =====================================================
+   HUD Display/Hide Classes
+   ===================================================== */
+
+.hud-hidden {
+    display: none !important;
+}
+
+.hud-fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+.hud-fade-in {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

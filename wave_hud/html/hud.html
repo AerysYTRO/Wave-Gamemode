@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Romania HUD</title>
+    <link rel="stylesheet" href="hud.css">
+</head>
+<body>
+    <!-- Top Right Info Panel -->
+    <div class="hud-container top-right">
+        <!-- Logo/Header -->
+        <div class="hud-header">
+            <div class="logo-text">WAVE</div>
+            <div class="logo-subtext">ROMANIA</div>
+        </div>
+
+        <!-- Player Info Section -->
+        <div class="hud-section player-info">
+            <div class="info-row">
+                <span class="label">ID:</span>
+                <span class="value" id="playerID">0000</span>
+            </div>
+            <div class="info-row">
+                <span class="label">NAME:</span>
+                <span class="value" id="playerName">Unknown</span>
+            </div>
+        </div>
+
+        <!-- Money Section -->
+        <div class="hud-section money-section">
+            <div class="money-row bank">
+                <div class="money-icon">💰</div>
+                <div class="money-info">
+                    <div class="money-label">Bank</div>
+                    <div class="money-amount" id="bankMoney">$0</div>
+                </div>
+            </div>
+            <div class="money-row cash">
+                <div class="money-icon">💵</div>
+                <div class="money-info">
+                    <div class="money-label">Cash</div>
+                    <div class="money-amount" id="cashMoney">$0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Faction/Group Section -->
+        <div class="hud-section faction-group">
+            <div class="info-row">
+                <span class="label">FACTION:</span>
+                <span class="value" id="factionName">None</span>
+            </div>
+            <div class="info-row">
+                <span class="label">GROUP:</span>
+                <span class="value" id="groupName">user</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Center Stats Panel -->
+    <div class="hud-container bottom-center">
+        <div class="stats-panel">
+            <!-- Health -->
+            <div class="stat-item">
+                <div class="stat-label">HEALTH</div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar health-bar" id="healthBar" style="width: 100%"></div>
+                    <span class="stat-value" id="healthValue">100</span>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="stat-divider">|</div>
+
+            <!-- Armor -->
+            <div class="stat-item">
+                <div class="stat-label">ARMOR</div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar armor-bar" id="armorBar" style="width: 0%"></div>
+                    <span class="stat-value" id="armorValue">0</span>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="stat-divider">|</div>
+
+            <!-- Energy -->
+            <div class="stat-item">
+                <div class="stat-label">ENERGY</div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar energy-bar" id="energyBar" style="width: 100%"></div>
+                    <span class="stat-value" id="energyValue">100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading indicator -->
+    <div class="loading-indicator" id="loadingIndicator">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="hud.js"></script>
+</body>
+</html>

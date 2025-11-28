@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Wave Romania Roleplay - HUD Resource with HTML/CSS/JS -->
+<meta>
+    <!-- Resource Info -->
+    <info author="Wave Romania Roleplay Development Team" name="Wave HUD System" description="Professional HTML/CSS/Lua HUD interface for Wave Romania Roleplay" version="2.0.0" type="script"/>
+    
+    <!-- Min Version Requirements -->
+    <min_mta_version client="1.5.9-9.16088" server="1.5.9-9.16088"/>
+    
+    <!-- Server Scripts -->
+    <script src="server/hud.lua" type="server"/>
+    
+    <!-- Client Scripts -->
+    <script src="client/hud.lua" type="client"/>
+    <script src="client/id_display.lua" type="client"/>
+    
+    <!-- HTML/CSS/JS Files (for CEF browser) -->
+    <file src="html/hud.html" type="html"/>
+    <file src="html/hud.css" type="text"/>
+    <file src="html/hud.js" type="text"/>
+    
+    <!-- ACL Rights -->
+    <aclrequest>
+        <right name="function.triggerClientEvent" access="true"/>
+        <right name="function.triggerServerEvent" access="true"/>
+        <right name="function.triggerEvent" access="true"/>
+        <right name="function.setElementData" access="true"/>
+        <right name="function.getElementData" access="true"/>
+        <right name="function.createBrowser" access="true"/>
+        <right name="function.injectBrowserJavascript" access="true"/>
+        <right name="function.dxDrawText" access="true"/>
+        <right name="function.dxDrawRectangle" access="true"/>
+        <right name="function.bindKey" access="true"/>
+        <right name="function.unbindKey" access="true"/>
+    </aclrequest>
+</meta>
