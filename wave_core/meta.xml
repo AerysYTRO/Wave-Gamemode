@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Wave Romania Roleplay - Core Resource Meta File -->
+<meta>
+    <!-- Resource Info -->
+    <info author="Wave Romania Roleplay Development Team" name="Wave Core System" description="Core system for Wave Romania Roleplay server" version="1.0.0" type="script"/>
+    
+    <!-- Min Version Requirements -->
+    <min_mta_version client="1.5.9-9.16088" server="1.5.9-9.16088"/>
+    
+    <!-- Script Files - Core Module -->
+    <script src="core/core.lua" type="server"/>
+    
+    <!-- Script Files - Database Module -->
+    <script src="core/database.lua" type="server"/>
+    
+    <!-- Script Files - Systems Modules -->
+    <script src="core/permissions.lua" type="server"/>
+    <script src="core/priority.lua" type="server"/>
+    <script src="core/groups.lua" type="server"/>
+    <script src="core/commands.lua" type="server"/>
+    <script src="core/ui.lua" type="server"/>
+    <script src="core/factions.lua" type="server"/>
+    <script src="core/vip.lua" type="server"/>
+    <script src="core/donator.lua" type="server"/>
+    
+    <!-- Script Files - Utilities -->
+    <script src="utils/utils.lua" type="server"/>
+    
+    <!-- Exports Module (must be last) -->
+    <script src="core/exports.lua" type="server"/>
+    
+    <!-- Config Files -->
+    <config src="config/config.xml" type="server"/>
+    
+    <!-- ACL Rights -->
+    <aclrequest>
+        <right name="function.dbExec" access="true"/>
+        <right name="function.dbQuery" access="true"/>
+        <right name="function.getPlayerSerial" access="true"/>
+        <right name="function.setElementData" access="true"/>
+        <right name="function.getElementData" access="true"/>
+        <right name="function.triggerEvent" access="true"/>
+        <right name="function.triggerClientEvent" access="true"/>
+        <right name="function.addEventHandler" access="true"/>
+        <right name="function.removeEventHandler" access="true"/>
+        <right name="function.executeCommandHandler" access="true"/>
+        <right name="function.kick" access="true"/>
+        <right name="function.ban" access="true"/>
+        <right name="general.ModifyOtherObjects" access="true"/>
+        <right name="general.ScriptRights" access="true"/>
+    </aclrequest>
+</meta>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Wave Romania Roleplay - Core Configuration -->
+<config>
+    <!-- Database Configuration -->
+    <database>
+        <host>localhost</host>
+        <port>3306</port>
+        <username>root</username>
+        <password>password</password>
+        <database>wave_roleplay</database>
+    </database>
+
+    <!-- Groups Configuration -->
+    <groups>
+        <group name="user" priority="1">
+            <permissions>
+                <permission>basic.chat</permission>
+                <permission>basic.move</permission>
+            </permissions>
+        </group>
+        
+        <group name="helper" priority="30">
+            <permissions>
+                <permission>basic.chat</permission>
+                <permission>basic.move</permission>
+                <permission>help.kick</permission>
+                <permission>help.warn</permission>
+                <permission>help.mute</permission>
+            </permissions>
+        </group>
+        
+        <group name="moderator" priority="50">
+            <permissions>
+                <permission>basic.chat</permission>
+                <permission>basic.move</permission>
+                <permission>mod.kick</permission>
+                <permission>mod.ban</permission>
+                <permission>mod.warn</permission>
+                <permission>mod.mute</permission>
+                <permission>mod.jail</permission>
+            </permissions>
+        </group>
+        
+        <group name="admin" priority="75">
+            <permissions>
+                <permission>admin.all</permission>
+                <permission>admin.kick</permission>
+                <permission>admin.ban</permission>
+                <permission>admin.manage_players</permission>
+                <permission>admin.manage_groups</permission>
+                <permission>admin.manage_commands</permission>
+            </permissions>
+        </group>
+        
+        <group name="superadmin" priority="100">
+            <permissions>
+                <permission>*</permission>
+            </permissions>
+        </group>
+        
+        <group name="police" priority="40">
+            <permissions>
+                <permission>basic.chat</permission>
+                <permission>faction.police.arrest</permission>
+                <permission>faction.police.patrol</permission>
+                <permission>faction.police.communicate</permission>
+            </permissions>
+        </group>
+        
+        <group name="medic" priority="40">
+            <permissions>
+                <permission>basic.chat</permission>
+                <permission>faction.medic.heal</permission>
+                <permission>faction.medic.revive</permission>
+                <permission>faction.medic.ambulance</permission>
+            </permissions>
+        </group>
+    </groups>
+
+    <!-- VIP Configuration -->
+    <vip>
+        <enabled>true</enabled>
+        <permissions>
+            <permission>vip.exclusive_commands</permission>
+            <permission>vip.special_events</permission>
+            <permission>vip.premium_support</permission>
+            <permission>vip.cosmetic_features</permission>
+        </permissions>
+        <features>
+            <feature name="extra_slots">true</feature>
+            <feature name="daily_reward">500</feature>
+            <feature name="exclusive_vehicles">true</feature>
+        </features>
+    </vip>
+
+    <!-- Donator Configuration -->
+    <donator>
+        <enabled>true</enabled>
+        <permissions>
+            <permission>donator.special_items</permission>
+            <permission>donator.exclusive_commands</permission>
+            <permission>donator.priority_access</permission>
+        </permissions>
+        <tiers>
+            <tier name="bronze" cost="50">
+                <benefit>5000_cash</benefit>
+                <benefit>exclusive_vehicle_1</benefit>
+                <benefit>cosmetic_pack</benefit>
+            </tier>
+            <tier name="silver" cost="100">
+                <benefit>15000_cash</benefit>
+                <benefit>exclusive_vehicle_1</benefit>
+                <benefit>exclusive_vehicle_2</benefit>
+                <benefit>cosmetic_pack_premium</benefit>
+            </tier>
+            <tier name="gold" cost="200">
+                <benefit>50000_cash</benefit>
+                <benefit>all_exclusive_vehicles</benefit>
+                <benefit>premium_house</benefit>
+                <benefit>special_weapon_license</benefit>
+            </tier>
+        </tiers>
+    </donator>
+
+    <!-- Factions Configuration -->
+    <factions>
+        <faction name="Los Santos Police Department" id="1" color="#0066FF">
+            <leader>Unknown</leader>
+            <maxmembers>50</maxmembers>
+            <permissions>
+                <permission>faction.police.arrest</permission>
+                <permission>faction.police.patrol</permission>
+                <permission>faction.police.communicate</permission>
+                <permission>faction.police.fine</permission>
+            </permissions>
+        </faction>
+        
+        <faction name="San Fierro Medical" id="2" color="#FF0000">
+            <leader>Unknown</leader>
+            <maxmembers>30</maxmembers>
+            <permissions>
+                <permission>faction.medic.heal</permission>
+                <permission>faction.medic.revive</permission>
+                <permission>faction.medic.ambulance</permission>
+            </permissions>
+        </faction>
+        
+        <faction name="Fire Department" id="3" color="#FF6600">
+            <leader>Unknown</leader>
+            <maxmembers>25</maxmembers>
+            <permissions>
+                <permission>faction.fire.extinguish</permission>
+                <permission>faction.fire.rescue</permission>
+                <permission>faction.fire.pump</permission>
+            </permissions>
+        </faction>
+    </factions>
+
+    <!-- Server Configuration -->
+    <server>
+        <name>Wave Romania Roleplay</name>
+        <version>1.0.0</version>
+        <maxplayers>256</maxplayers>
+        <language>ro</language>
+        <debug>true</debug>
+    </server>
+</config>
