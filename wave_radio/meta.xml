@@ -12,7 +12,7 @@
         <right name="function.triggerServerEvent" access="true"/>
         <right name="function.getElementData" access="true"/>
         <right name="function.setElementData" access="true"/>
-        <right name="function.createBrowser" access="false"/>
+        <!-- removed invalid/unused ACL for createBrowser -->
         <right name="function.playSound" access="true"/>
         <right name="function.playSound3D" access="true"/>
     </aclrequest>
