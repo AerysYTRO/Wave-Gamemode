@@ -1,0 +1,12 @@
+{
+  "name": "wave-radio-proxy",
+  "version": "1.0.0",
+  "description": "Lightweight streaming proxy for Wave Radio using yt-dlp to provide direct audio streams from YouTube/Spotify/etc",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
