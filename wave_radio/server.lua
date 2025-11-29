@@ -26,6 +26,32 @@ addEventHandler("wave_radio:requestPlay", root, function(url)
         return
     end
 
+    -- If URL is from youtube/spotify or not obviously a direct stream, proxy through local proxy if configured
+    local PROXY_BASE = getResourceConfig and getResourceConfig("wave_radio_proxy") or nil
+    -- Fallback default proxy (local). Change in config or set env.
+    if not PROXY_BASE then
+        PROXY_BASE = "http://127.0.0.1:3000/stream?url="
+    end
+
+    local needsProxy = false
+    if lower:match("youtube.com") or lower:match("youtu.be") or lower:match("spotify.com") or not (lower:match("%.mp3") or lower:match("%.ogg") or lower:match("stream") or lower:match("listen")) then
+        needsProxy = true
+    end
+
+    if needsProxy then
+        -- Build proxied URL (url-encode original)
+        local function urlencode(str)
+            if not str then return "" end
+            str = tostring(str)
+            str = str:gsub("([^%w _%.%-~])", function(c) return string.format('%%%02X', string.byte(c)) end)
+            str = str:gsub(' ', '%%20')
+            return str
+        end
+        local proxied = PROXY_BASE .. urlencode(url) .. "&format=mp3"
+        triggerClientEvent(player, "wave_radio:notify", player, true, "Using proxy to stream content (YouTube/Spotify).")
+        url = proxied
+    end
+
     -- Optionally, check extension or known stream hosts (simple check)
     local ok = nil
     if lower:match("%.mp3") or lower:match("%.ogg") or lower:match("stream") or lower:match("listen") then

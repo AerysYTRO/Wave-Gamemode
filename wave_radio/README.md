@@ -41,8 +41,22 @@ Security & permissions
 
 Want YouTube/Spotify support?
 ------------------------------
-I can:
-- Add an optional CEF-based player to embed YouTube/Spotify players (requires HTML, but provides native players), or
-- Add integration instructions and a small Node + yt-dlp proxy that returns a direct audio stream URL (more advanced, needs hosting).
+This repository now includes a reference proxy implementation at `wave_radio/proxy/` that uses `yt-dlp` to convert YouTube/Spotify links into direct MP3 streams. To enable this feature:
 
-If you want either option, tell me which one and I will implement it.
+1. Install and run the proxy (recommended on a separate machine or the server host):
+
+```bash
+cd wave_radio/proxy
+npm install
+PORT=3000 node server.js
+```
+
+2. Configure `wave_radio` to use the proxy by editing `wave_radio/server.lua` if you host the proxy on a non-default address. By default, the server will attempt to use `http://127.0.0.1:3000/stream?url=` as the proxy base URL. If your proxy runs on another host, set `PROXY_BASE` variable in `server.lua` or update the resource config.
+
+3. In-game, paste a YouTube or Spotify link into the radio GUI and press `PLAY`. The server will construct a proxied stream URL and broadcast it to vehicle occupants; clients will play the proxied MP3 stream.
+
+Notes & limitations:
+- The proxy requires `yt-dlp` installed and will transcode/stream audio — this consumes CPU and bandwidth. Run it on a machine with sufficient resources.
+- For production, consider running the proxy behind a reverse proxy, add authentication, and add caching.
+
+If you'd like, I can generate a Dockerfile and systemd unit for the proxy, or implement the CEF approach instead. Tell me which deployment option you prefer.
