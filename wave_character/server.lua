@@ -189,8 +189,5 @@ addEventHandler("onPlayerJoin", root, function()
 end)
 
 -- Admin command to open character menu (for testing)
-addCommandHandler("/chars", function(player)
-    local serial = getPlayerSerial(player) or getPlayerName(player)
-    local chars = loadCharacters(serial)
-    triggerClientEvent(player, "wave_character:list", resourceRoot, chars)
-end)
+-- Manual `/chars` command removed to keep character flow automatic.
+-- Use onPlayerJoin and client events to show creator/selection without commands.
