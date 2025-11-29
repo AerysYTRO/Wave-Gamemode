@@ -1,0 +1,4 @@
+<meta>
+    <info author="Aerys / Wave Team" version="1.0"/>
+    <script src="server.lua" type="server"/>
+</meta>
