@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meta>
+    <info author="Wave Romania Roleplay" name="Wave Radio" description="In-vehicle radio: paste stream URL and play/stop via GUI (no HTML)" version="1.0" type="script"/>
+
+    <min_mta_version client="1.5.9-9.16088" server="1.5.9-9.16088"/>
+
+    <script src="server.lua" type="server"/>
+    <script src="client.lua" type="client"/>
+
+    <aclrequest>
+        <right name="function.triggerClientEvent" access="true"/>
+        <right name="function.triggerServerEvent" access="true"/>
+        <right name="function.getElementData" access="true"/>
+        <right name="function.setElementData" access="true"/>
+        <right name="function.createBrowser" access="false"/>
+        <right name="function.playSound" access="true"/>
+        <right name="function.playSound3D" access="true"/>
+    </aclrequest>
+</meta>
