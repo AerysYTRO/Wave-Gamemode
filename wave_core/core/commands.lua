@@ -257,7 +257,207 @@ function registerDefaultCommands()
         end
     end, "List all online players")
     
+    -- =====================================================
+    -- Admin Commands
+    -- =====================================================
+    
+    -- Admin: Spawn vehicle command
+    addCoreCommand("veh", "admin.manage_players", function(player, args)
+        if #args < 1 then
+            sendErrorMessage(player, "Usage: /veh [vehicle_name_or_id]")
+            return
+        end
+        
+        local vehicleModel = args[1]
+        local modelID = tonumber(vehicleModel)
+        
+        -- If string, try to get model ID from name
+        if not modelID then
+            modelID = getVehicleModelFromName(vehicleModel)
+        end
+        
+        if not modelID or modelID < 400 or modelID > 611 then
+            sendErrorMessage(player, "Invalid vehicle model.")
+            return
+        end
+        
+        -- Get player position slightly ahead
+        local px, py, pz = getElementPosition(player)
+        local rotation = getPedRotation(player)
+        
+        -- Spawn vehicle
+        local veh = createVehicle(modelID, px + 5, py, pz + 1)
+        
+        if veh then
+            warpPlayerIntoVehicle(player, veh)
+            sendSuccessMessage(player, "Vehicle spawned successfully!")
+        else
+            sendErrorMessage(player, "Failed to spawn vehicle.")
+        end
+    end, "Spawn a vehicle")
+    
+    -- Admin: Noclip command
+    addCoreCommand("noclip", "admin.manage_players", function(player, args)
+        local noclipStatus = getElementData(player, "player:noclip") or false
+        noclipStatus = not noclipStatus
+        
+        setElementData(player, "player:noclip", noclipStatus)
+        
+        if noclipStatus then
+            sendSuccessMessage(player, "Noclip: ON")
+            -- Freeze player to prevent fall damage
+            setElementFrozen(player, true)
+        else
+            sendSuccessMessage(player, "Noclip: OFF")
+            setElementFrozen(player, false)
+        end
+    end, "Toggle noclip mode")
+    
+    -- Admin: Noclip shortcut command
+    addCoreCommand("nc", "admin.manage_players", function(player, args)
+        executeCoreCommand(player, "noclip")
+    end, "Toggle noclip mode (shortcut)")
+    
+    -- Admin: Admin duty ON
+    addCoreCommand("aduty", "admin.manage_players", function(player, args)
+        local onDuty = getElementData(player, "player:admin_duty") or false
+        
+        if onDuty then
+            sendInfoMessage(player, "You are already on admin duty.")
+            return
+        end
+        
+        setElementData(player, "player:admin_duty", true)
+        
+        -- Grant all admin permissions
+        local adminPerms = {
+            "admin.spawn_vehicle",
+            "admin.noclip",
+            "admin.duty",
+            "admin.manage_players",
+            "admin.manage_groups",
+            "admin.manage_commands",
+            "admin.revive_players",
+            "admin.check_players"
+        }
+        
+        for _, perm in ipairs(adminPerms) do
+            addPlayerPermission(player, perm)
+        end
+        
+        -- Notify in chat
+        sendSuccessMessage(player, "You are now ON ADMIN DUTY - Full admin permissions granted!")
+        print("[ADMIN] " .. getPlayerName(player) .. " is now ON ADMIN DUTY")
+    end, "Go on admin duty (unlock all admin commands)")
+    
+    -- Admin: Admin duty OFF
+    addCoreCommand("adutyoff", "admin.manage_players", function(player, args)
+        local onDuty = getElementData(player, "player:admin_duty") or false
+        
+        if not onDuty then
+            sendInfoMessage(player, "You are not on admin duty.")
+            return
+        end
+        
+        setElementData(player, "player:admin_duty", false)
+        
+        sendSuccessMessage(player, "You are now OFF ADMIN DUTY - Admin permissions restricted.")
+        print("[ADMIN] " .. getPlayerName(player) .. " is now OFF ADMIN DUTY")
+    end, "Go off admin duty (restrict admin commands)")
+    
+    -- Admin: Revive player command
+    addCoreCommand("revive", "admin.manage_players", function(player, args)
+        if #args < 1 then
+            sendErrorMessage(player, "Usage: /revive [player_id]")
+            return
+        end
+        
+        local targetID = tonumber(args[1])
+        if not targetID then
+            sendErrorMessage(player, "Invalid player ID.")
+            return
+        end
+        
+        local target = getPlayerFromID(targetID)
+        if not target then
+            sendErrorMessage(player, "Player not found.")
+            return
+        end
+        
+        -- Revive player
+        spawnPlayer(target, 0, 0, 3)
+        
+        sendSuccessMessage(player, "Revived " .. getPlayerName(target))
+        sendInfoMessage(target, "You have been revived by an admin!")
+    end, "Revive a dead player")
+    
+    -- Admin: Get player ID by name
+    addCoreCommand("id", "admin.manage_players", function(player, args)
+        if #args < 1 then
+            sendErrorMessage(player, "Usage: /id [player_name]")
+            return
+        end
+        
+        local targetName = args[1]
+        local target = getPlayerByPartialName(targetName)
+        
+        if not target then
+            sendErrorMessage(player, "Player not found.")
+            return
+        end
+        
+        local targetID = getElementData(target, "player:id") or "Unknown"
+        local group = getPlayerGroup(target) or "user"
+        local faction = exports.wave_core:getPlayerFaction(target) or "None"
+        
+        sendInfoMessage(player, "=== Player Info ===")
+        sendPlayerMessage(player, "Name: " .. getPlayerName(target))
+        sendPlayerMessage(player, "ID: " .. targetID)
+        sendPlayerMessage(player, "Group: " .. group)
+        sendPlayerMessage(player, "Faction: " .. faction)
+    end, "Check player ID and info by name")
+    
     print("[COMMANDS] Default commands registered successfully")
+end
+
+-- =====================================================
+-- Helper Functions
+-- =====================================================
+
+--- Get player from element data ID
+function getPlayerFromID(id)
+    for _, player in ipairs(getElementsByType("player")) do
+        if getElementData(player, "player:id") == id then
+            return player
+        end
+    end
+    return nil
+end
+
+--- Get vehicle model from name
+function getVehicleModelFromName(name)
+    local models = {
+        ["blista"] = 496, ["baller"] = 525, ["buffalo"] = 402, ["cabbie"] = 438,
+        ["cadrona"] = 484, ["car"] = 400, ["cheetah"] = 415, ["clipper"] = 446,
+        ["comet"] = 480, ["dodo"] = 417, ["esperanto"] = 419, ["futo"] = 542,
+        ["glendale"] = 475, ["gta"] = 434, ["hermes"] = 545, ["hotdog"] = 588,
+        ["hydra"] = 520, ["infernus"] = 411, ["intruder"] = 546, ["jester"] = 559,
+        ["kart"] = 571, ["landstalker"] = 400, ["manana"] = 427, ["marquis"] = 533,
+        ["matrix"] = 555, ["patriot"] = 527, ["phoenix"] = 412, ["sabregt"] = 475,
+        ["sadler"] = 543, ["sanchez"] = 468, ["savanna"] = 567, ["sentinel"] = 405,
+        ["solair"] = 458, ["stafford"] = 580, ["sultanrs"] = 522, ["super"] = 588,
+        ["taxi"] = 438, ["uranus"] = 558, ["vincent"] = 540, ["virgo"] = 491,
+        ["walton"] = 478, ["wayfarer"] = 586, ["zr350"] = 551, ["hex"] = 534
+    }
+    
+    -- If number, return it
+    if tonumber(name) then
+        return tonumber(name)
+    end
+    
+    -- Lowercase search
+    local searchName = name:lower()
+    return models[searchName] or nil
 end
 
 -- =====================================================

@@ -26,6 +26,9 @@
     <!-- Script Files - Utilities -->
     <script src="utils/utils.lua" type="server"/>
     
+    <!-- Client-side Scripts -->
+    <script src="client/noclip.lua" type="client"/>
+    
     <!-- Exports Module (must be last) -->
     <script src="core/exports.lua" type="server"/>
     
@@ -46,6 +49,9 @@
         <right name="function.executeCommandHandler" access="true"/>
         <right name="function.kick" access="true"/>
         <right name="function.ban" access="true"/>
+        <right name="function.getCameraMatrix" access="true"/>
+        <right name="function.getKeyState" access="true"/>
+        <right name="function.setElementFrozen" access="true"/>
         <right name="general.ModifyOtherObjects" access="true"/>
         <right name="general.ScriptRights" access="true"/>
     </aclrequest>

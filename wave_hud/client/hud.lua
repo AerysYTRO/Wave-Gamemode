@@ -56,13 +56,49 @@ function HUD:createBrowser()
         return false
     end
     
-    -- Load HTML file
-    loadBrowserURL(self.browser, self.browserURL)
-    
+    -- Try to inline HTML/CSS/JS into a data URL so CEF loads reliably
+    local function safeRead(path)
+        if not fileExists(path) then return nil end
+        local f = fileOpen(path)
+        if not f then return nil end
+        local size = fileGetSize(f)
+        local content = fileRead(f, size)
+        fileClose(f)
+        return content
+    end
+
+    local html = safeRead("html/hud.html") or ""
+    local css = safeRead("html/hud.css") or ""
+    local js = safeRead("html/hud.js") or ""
+
+    -- Inline CSS and JS into the HTML (replace link/script tags if present)
+    if html ~= "" then
+        -- Replace stylesheet link
+        html = html:gsub("<link%s+rel=\"stylesheet\"%s+href=\"hud.css\"%s*/?>", "<style>" .. css .. "</style>")
+        -- Replace script tag
+        html = html:gsub("<script%s+src=\"hud.js\"%s*></script>", "<script>" .. js .. "</script>")
+    else
+        -- Fallback minimal html
+        html = "<html><head><style>" .. css .. "</style></head><body>" .. js .. "</body></html>"
+    end
+
+    -- URL-encode helper for data URI
+    local function urlencode(str)
+        if not str then return "" end
+        local s = str:gsub("([^%w %-%_%.%~])", function(c)
+            return string.format("%%%02X", string.byte(c))
+        end)
+        s = s:gsub(" ", "+")
+        return s
+    end
+
+    local dataUrl = "data:text/html;charset=utf-8," .. urlencode(html)
+    loadBrowserURL(self.browser, dataUrl)
+
     -- Set browser properties
     setBrowserRenderingPaused(self.browser, false)
-    
-    print("[HUD] Browser created successfully")
+
+    print("[HUD] Browser created successfully (inlined)")
     return true
 end
 
@@ -77,21 +113,25 @@ function HUD:setupEvents()
         HUD:sendDataToBrowser(data)
     end)
     
-    -- Browser load complete
-    addEventHandler("onClientBrowserCreated", self.browser, function()
-        print("[HUD] Browser created event triggered")
-        HUD:sendDataToBrowser(HUD:getPlayerData())
+    -- Browser load/create events: attach to root and filter by browser element
+    addEventHandler("onClientBrowserCreated", root, function(createdBrowser)
+        if createdBrowser == HUD.browser then
+            print("[HUD] Browser created event triggered")
+            HUD:sendDataToBrowser(HUD:getPlayerData())
+        end
     end)
-    
-    -- Browser document ready
-    addEventHandler("onClientBrowserDocumentReady", self.browser, function()
-        print("[HUD] Browser document ready")
-        HUD:sendInitialData()
+
+    addEventHandler("onClientBrowserDocumentReady", root, function(createdBrowser)
+        if createdBrowser == HUD.browser then
+            print("[HUD] Browser document ready")
+            HUD:sendInitialData()
+        end
     end)
-    
-    -- Browser custom event
-    addEventHandler("onClientBrowserCustom", self.browser, function(event, data)
-        HUD:handleBrowserEvent(event, data)
+
+    addEventHandler("onClientBrowserCustom", root, function(createdBrowser, event, data)
+        if createdBrowser == HUD.browser then
+            HUD:handleBrowserEvent(event, data)
+        end
     end)
 end
 
